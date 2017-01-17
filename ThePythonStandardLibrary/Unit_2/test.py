@@ -50,3 +50,23 @@ print(c)
 print(d)
 print(e)
 print(a == b == c == e)
+
+print(11 / 5)
+print(11 // 5)
+print(11 % 5)
+
+print(divmod(11, 5))
+print(divmod(11, 5)[0])
+
+seasons = ['Spring', 'Summer', 'Fall', 'Winter']
+print(enumerate(seasons))
+print(list(enumerate(seasons)))
+print(list(enumerate(seasons, start=1)))
+
+for i in range(0, len(seasons)):
+    print(i, seasons[i])
+
+
+def f(x):
+    return x % 2 != 0 and x % 3 != 0
+filter(f, range(2, 25))

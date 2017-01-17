@@ -223,6 +223,46 @@ dir([object])
     If the object does not provide __dir__(), the function tries its best to gather information from the object's
     __dict__ attribute, if defined, and from its type object. The resulting list is not necessarily complete, and may be
     inaccurate when the object has a custom __getattr__().
+
+divmod(a, b)
+    Take two (non complex) numbers as arguments and return  a pair of numbers consisting of their quotient and remainder
+    when using integer division.  With mixed operand types, the rules for binary arithmetic operators apply. For
+    integers, the result is the same as (a//b, a % b). For floating poing numbers the result is (q, a % b), where q is
+    usually math.floor(a / b) but may be 1 less than that. In any case q＊ｂ＋a%b is bery close to a, if a%b is non-zero
+    it has the same sign as b, and 0 <= abs(a%b) < abs(b).
+    本函数是实现a除以b，然后返回商与余数的元祖。如果两个参数a，b都是整数，那么会采用整数除法，结果相当与 ( a//b, a%b).
+    如果a或b是浮点数，相当于(math.floor(a/b), a%b)
+
+enumerate(iterable, start=0)
+    Return an enumerate object. iterable must be a sequence, an iterator, or some other object which supports iteration.
+    The __next__() method of the iterator returned by enumerate() returns a tuple containing a count (from start which
+    defaults to 0) and the values obtained from iterating over iterable.
+
+    今天发现一个新函数 enumerate。一般情况下对一个列表或数组既要遍历索引又要遍历元素时，会这样写：
+
+eval(expression, global=None, local=None)
+    The arguments are a string and optional global and locals. If provided, globals must be a dictionary. If provided,
+    locals can be any mapping object.
+
+    The expression arguments is parsed and evaluated as a Python expression (technically speaking, a condition list)
+    using the globals and locals dictionaries as global and local namespace. if the globals dictionary is present and
+    lacks '__
+
+exex(object[, global[, locals]])
+    This function supports dynamic of Python code. Object must be either a string or a code object. If it is a string,
+    the string is parsed as a suit of Python statements which is then executed  (unliess a syntax error occurs). If it
+    is a code object, it is simply executed. In all cases, the code that's executed is expected to be valid as file
+    input (see the section "File input") in the Reference Manual). Be aware that the return and yield statements may not
+    be used outside
+
+filter(function, iterable)
+    Construct an iterable from those elements of iterable for which function returns true. iterable may be either a
+    sequence, a container which supports iteration, or an iterator. If functions is None, the identify function is
+    assumed, that is, all elements of iterable that are false are removed.
+
+    Note that filter (function, iterable) is equivalent to the generator expression (item for item in iterable if
+    function(item)) if function is not None and (item for item in iterable if item) if function is None.
+
 """
 
 
