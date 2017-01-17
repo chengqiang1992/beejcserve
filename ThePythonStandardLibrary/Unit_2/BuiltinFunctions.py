@@ -164,7 +164,69 @@ classmethod(function)
 
 compile(source, filename, mode, flags = 0, dont_inherit=False, optimize=-1)
     Compile the source into a code or AST object. Code objects can be executed by exec() or eval().
+
+
+delattr(object, name)
+    This is a relative of setattr(). The arguments are an object and a string. The string must be the name of one of the
+    object's attributes. The function deletes the named attribute, provided the object allows it. For example,
+
+    delattr(x, 'foobar') is equivalent to del x.foovar
+
+class dict(**kwarg)
+class dict(mapping, **kwarg)
+class dict(iterable, **kwarg)
+    Create a new dictionary. The dict object is the dictionary class. See dict and Mapping Types - dict for
+    documentation about this class.
+
+    For other containers see the built-in list, set and tuple classes, as well as the collections module.
+
+    ----------------------------------------------NOTICE----------------------------------------------------------------
+    class dict(**kwarg)
+    class dict(mapping, **kwarg)
+    class dict(iterable, **kwarg)
+        Return a new dictionary initialized from an optional positional argument and a possibly empty set of keyword
+        arguments.
+
+        If no positional argument is given, an empty dictionary is created. If a positional argument is given and it is
+        a mapping object, a dictionary is created with the same key-value pairs as the mapping object. Otherwise, the
+        positional argument must be an iterable object. Each item in the iterable must iterable with exactly two objects
+        The first object of each item becomes a key in the new dictionary, and the second object the corresponding value.
+        If a key occurs more than once, the last value for that key become the corresponding value in the new dictionary.
+
+        If keyword arguments are given, the keyword arguments and their values are added to the dictionary created form
+        the positional argument. If a key being added is already present, the value from the keyword arguments replaces
+        the value from the positional argument.
+
+        To illustrate, the following examples all return a dictionary equal to {"one": 1, "two": 2, "three": 3}
+
+            a = dict(one=1, two=2, three=3)
+            b = {'one': 1, 'two': 2, 'three': 3}
+            c = dict(zip(['one', 'two', 'three'], [1, 2, 3]))
+            d = dict([('two', 2), ('one', 1), ('three', 3)])
+            e = dict({'three': 3, 'two': 2, 'one': 1})
+
+            print(a)        # {'one': 1, 'two': 2, 'three': 3}
+            print(b)        # {'one': 1, 'two': 2, 'three': 3}
+            print(c)        # {'one': 1, 'two': 2, 'three': 3}
+            print(d)        # {'two': 2, 'one': 1, 'three': 3}
+            print(e)        # {'three': 3, 'two': 2, 'one': 1}
+            print(a == b == c == e)     # True
+
+dir([object])
+    Without arguments, return the list of names in the current local scope. With an arugument, attempt to return a list
+    of valid attributes for that object.
+
+    If the object has a method named __dir__(), this method will be called and must return the list of attributes. This
+    allows objects that implement a custom __getattr()__ or __getattribute__() function to customize the way dir()
+    reports their attributes.
+
+    If the object does not provide __dir__(), the function tries its best to gather information from the object's
+    __dict__ attribute, if defined, and from its type object. The resulting list is not necessarily complete, and may be
+    inaccurate when the object has a custom __getattr__().
 """
+
+
+
 
 
 
