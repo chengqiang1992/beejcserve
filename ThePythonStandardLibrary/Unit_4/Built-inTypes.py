@@ -249,5 +249,80 @@ of binary data and text strings are described in dedicated sections.
         negative, i and j are deduced to len(s) - 1 if they are greater. If i or j are omitted or None, they become
         "end" values (which end depends on the sign of k). Note, K cannot be zero. If k is None, it is treated like 1.
 
+    4.6.2.
+
+    4.6.3. Mutable Sequence Types
+
+    4.6.4. Lists
+
+    4.6.5. Tuples
+    Tuples are immutable sequences, typically used to store collections of heterogeneous data (such as the 2-tuples
+    produced by the enumerate() built-in). Tuples are also used for cases where an immutable sequence of homogeneous
+    data is needed (such as allowing storage in a set or dict instance).
+
+    class tuple([iterable])
+        Tuples may be constructed in a number of ways:
+            - Using a pair of parentheses to denote the empty tuple: ()
+            - Using a string common for a singleton tuple: a, or (a, )
+            - Separating items with commas: a, b, c or (a, b, c)
+            - Using the tuple() built-in: tuple() or tuple(iterable)
+        The constructor builds a tuple whose items are the same and in the same order as iterable's items. iterable may
+        be either a sequence, a container that supports iteration, or an iterator object. If iterable is already a tuple,
+        it is returned unchanged. For example, tuple('abc') returns ('a', 'b', 'c') and tuple([1, 2, 3]) returns (1, 2,
+        3). If no argument is given, the constructor creates a new empty tuple, ().
+
+        Note that it is actually the comma which makes a tuple, not the parentheses. The parentheses are optional,
+        except in the empty tuple case, or when they are needed to avoid syntatic ambiguity. For example, f(a, b, c) is
+        a function call with three arguments, while f((a, b, c)) is a function call with a 3-tuple as the sole argument.
+
+    4.6.6. Ranges
+    The range type represents an immutable sequence of numbers and is commonly used for looping a specific number of
+    times in for loops.
+
+    class range(stop)
+    class range(start, stop[, step])
+        The arguments to the range constructor must be integers (either built-in int or any object that implements the
+        __index__() special method). If the step argument is omitted, it default to 1. If the start argument is omitted,
+        it default to 0. If step is zero, ValueError is raised.
+
+        For a positive step, the contents of a range r are determined by the formula r[i] = start + step*i where i >= 0
+        and r[i] < stop.
+
+        For a negative step, the contents of the range are still determined by the formula r[i] = start + start*i, but
+        the constraints are i >= 0 and r[i] > stop.
+
+        A range object will be empty if r[0] does not meet the value constraint. Ranges do support negative indices, but
+        these are interpreted as indexing from the end of the sequence determined by the positive indices.
+
+        Ranges containing absolute values larger than sys.maxsize are permitted but some features (such as len()) may
+        raise OverflowError.
+
+            print(range(10))
+            print(list(range(10)))
+            print(list(range(1, 11)))
+            print(list(range(1, 11, 2)))
+            print(list(range(0, -10, -1)))
+            print(list(range(0)))
+            print(list(range(1, 0)))
+        注意：range()生成一个数字序列，当for循环请求下一个项目时，它一次只生成一个数字。如果你想立刻看到完整的数字序列，
+        使用list(range())。list(列表)将在数据结构中解释。
+
+        Ranges implement all of the common sequence operations except concatenation and repetition (due to the fact that
+        range objects can only represent sequences that follow a strict pattern and repetition and concatenation will
+        usually violate that pattern).
+
+        start
+            the value of the start parameter (or 0 if the parameter was not supplied)
+        stop
+            The value of the stop parameter
+        step
+            The value of the step parameter (or 1 if the parameter was not supplied)
+
+        The advantage of the range type over a regular list or tuple is that a range object will always take the same
+        (small) amount of memory, no matter the size of the range it represents (sa it only stores the start, stop and
+        step values, calculating individual items and subranges as needed).
+
+
+
 
 """
