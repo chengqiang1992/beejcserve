@@ -322,6 +322,43 @@ of binary data and text strings are described in dedicated sections.
         (small) amount of memory, no matter the size of the range it represents (sa it only stores the start, stop and
         step values, calculating individual items and subranges as needed).
 
+4.7. Text Sequence Type -- str
+Textual data in Python is handled with str objects, or strings. Strings are immutable sequences of Unicode code points.
+String literals are written in a variety of ways:
+
+  - Single quotes: 'allow embedded "double" quotes'
+  - Double quotes: "allow embedded 'single' quotes"
+  - Triple quoted: '''Three single quotes''',
+
+Triple quoted strings may span multiple lines - all associated whitespace will be included in the string literal.
+
+String literals that are part of a single expression and have only whitespace between them will be implicitly converted
+to a single string literal. That is, ("span" "eggs") == "span eggs".
+
+See String and Bytes literals for more about the various form of string literal, including supported escape sequences,
+and the r ("raw") prefix that disables most escape sequence processing.
+
+Strings may also be created form other objects using the str constructor.
+
+Since there is no separate "character" type, indexing a string peoduces strings of length 1. THat is, for a non-empty
+string s, s[0] == s[0:1]
+
+There is also no mutable string type, but str.join() or io.StringIO can be used to efficiently construct string from
+multiple fragments.
+
+class str(object='')
+class str(object=b'', encoding='utf-8', errors='strict')
+    Return a string version of object. If object is not provided, returns the empty string. Otherwise, the behavior of
+    str() depends on whether encoding or errors is given,, as follows.
+
+    If neither encoding nor errors, str(object) returns object.__str__(), which is the "informal" or nicely printable
+    string representation of object. For string objects, this is the string itself. If object does not have a __str__()
+    method, then str() falls back to returning repr(object).
+
+    If at least one of encoding or errors is given, object should be a bytes-like object (e.g. bytes or bytearray). In
+    this case, if object is a bytes (or bytearray) object, then str (bytes, encoding, errors) is equivalent to bytes.
+    decode(encoding, errors). Otherwise, the bytes object underlying the buffer object is obatined before calling bytes.
+    decode()
 
 
 

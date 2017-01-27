@@ -43,3 +43,15 @@ print(10 in r)
 print(r.index(10))
 print(r[5])
 print(r[:5])
+
+class A(object):
+    pass
+
+a = A()
+print(A.__name__)
+
+class C:
+    def method(self):
+        print('Hello')
+c = C()
+c.method()
