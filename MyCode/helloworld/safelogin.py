@@ -24,44 +24,45 @@ from tornado.options import define, options
 define("port", default=8888, help="run on the given port", type=int)
 
 
-class MainHandler(tornado.web.RequestHandler):
+class BaseHandler(tornado.web.RequestHandler):
+    def get_current_user(self):
+        return self.get_secure_cookie("user")
+
+
+class MainHandler(BaseHandler):
     def get(self):
-        # self.write("Hello, world 123")
-        # Tornado 用户指南 模板和UI
-        # items = ["Item 1", "Item 2", "Item 3"]
-        # self.render("template.html", title="My Title", items=items)
-
-        # Tornado 用户指南 认证和安全
-        if not self.get_cookie("mycookie"):
-            self.set_cookie("mycookie", "myvalue")
-            self.write("Your cookie was not set yet")
-        else:
-            self.write("Your cookie was set!")
-
-class StoryHandler(tornado.web.RequestHandler):
-    def get(self, story_id):
-        self.write("this is story %s" % story_id)
+        if not self.current_user:
+            self.redirect("/login")
+        name = tornado.escape.xhtml_escape(self.current_user)
+        self.write("Hello, " + name)
 
 
-class MyFormHandler(tornado.web.RequestHandler):
+class LoginHandler(BaseHandler):
     def get(self):
-        self.write('<html><body><form action="/form" method="POST">'
-                   '<input type="text" name="message">'
-                   '<input type="submit" value="Submit">'
+        self.write('<html><body><form action="/login" method="post">'
+                    '{% module xsrf_form_html() %}'
+                   'Name: <input type="text" name="name">'
+                   '<input type="submit" value="Sign in">'
                    '</form></body></html>')
 
     def post(self):
-        self.set_header("Content-Type", "text/plain")
-        self.write("You wrote " + self.get_body_argument("message"))
+        self.set_secure_cookie("user", self.get_argument("name"))
+        self.redirect("/")
+
+
+settings = {
+    "cookie_secret": "__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__",
+    "login_url": "/login",
+    "xsrf_cookies": True
+}
 
 
 def main():
     tornado.options.parse_command_line()
     application = tornado.web.Application([
         (r"/", MainHandler),
-        (r"/story/([0-9]+)", StoryHandler),
-        (r"/form", MyFormHandler)
-    ], cookie_secret="__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__")
+        (r"/login", LoginHandler),
+    ], **settings)
     http_server = tornado.httpserver.HTTPServer(application)
     http_server.listen(options.port)
     tornado.ioloop.IOLoop.current().start()
