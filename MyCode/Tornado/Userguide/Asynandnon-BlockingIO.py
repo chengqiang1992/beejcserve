@@ -28,8 +28,6 @@ the same thing.
         Herr is a sample synchronous function:
             _________________________________________________
             from tornado.httpclient import HTTPClient
-
-
             def synchronous_fetch(url):
                 http_client = HTTPClient()
                 response = http_client.fetch(url)
@@ -39,15 +37,13 @@ the same thing.
         And here is the same function rewritten to be asynchronous with a callback argument:
              _________________________________________________
             from tornado.httpclient import AsyncHTTPClient
-
-
             def asynchronous_fetch(url, callback):
                 http_client = AsyncHTTPClient()
-
                 def handle_response(response):
                     callback(response.body)
                 http_client.fetch(url, callback=handle_response)
             -------------------------------------------------
+
 
 """
 
