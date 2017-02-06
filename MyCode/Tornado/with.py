@@ -75,6 +75,28 @@ lets all other exceptions through:
     def __exit__(self, type, value, traceback):
         return isinstance(value, TypeError)
 
+so to open a file, process its contents, and make sure to close it, you can simply do:
+
+file = open("x.txt")
+data = file.read()
+file.close()
+
+try:
+    f = open('xxx')
+except:
+    print 'fail to open'
+    exit(-1)
+try:
+    do something
+except:
+    do something
+finally:
+     f.close()
+
+with open("x.txt") as f:
+    data = f.read()
+    do something with data
+
 
 最后  处理异常
     try:
