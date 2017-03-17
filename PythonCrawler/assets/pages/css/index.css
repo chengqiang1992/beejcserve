@@ -1,0 +1,23 @@
+body {
+  padding-top: 50px;
+  background-color: #f2f2f2;
+}
+}
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+p {
+    margin: 0 0 10px;
+}
+.lead {
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.4;
+}
+.blog-description {
+    font-size: 14px;
+    color: #999;
+}

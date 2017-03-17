@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device,initial-scale=1"/> 
+
+    <meta name="keywords" content="Quickstart">
+    <meta name="description" content="Quickstart">
+    <meta name="author" content="">
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+
+    <title>Quickstart</title>
+
+    <link rel="stylesheet" type="text/css" href="../assets/global/plugins/bootstrap-3.3.6-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/global/css/global.css">
+    <link rel="stylesheet" type="text/css" href="../assets/pages/css/quick_start.css" />
+</head>
+<body>
+    <!--Fixed navbar-->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="appendix_E_JSLint.html">Quickstart</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height:1px">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">DropDown<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another Action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Nav Header</li>
+                            <li><a href="#">Separted Link</a></li>
+                            <li><a href="#">One more separted link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--Begin page content-->
+    <div class="container">
+        <div style="text-align: right;">
+            <div class="page-header">
+                <h2>Python Requests<br>Quickstart</h2>
+            </div>
+
+            <!--q元素表示引自他处的内容-->
+            <q>难道我的眼镜耳朵都有了毛病？</q><br>
+            <!--cite元素表示所引用作品（如图书、文章、电影和诗歌）的标题-->
+            <cite>——威廉·莎士比亚，《错误的喜剧》（The Comedy of Errors）</cite>
+        </div>
+
+        <p>Eager to get started? This page gives a good introduction in how to get started with Requests.</p>
+        <P>First, make sure that:</P>
+        <ul>
+            <li>Requests is installed</li>
+            <li>Requests is up-to-date</li>
+        </ul>
+        <p>Let's get started with some simple example.</p>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Make a Request</h2>
+                <p>Making a request with Requests is very simple</p>
+                <p>Begin by importing the Requests module:</p>
+                <pre>
+                    <code>
+    import requests
+                    </code>
+                </pre>
+                <p>Now,let's try to get a webpage. For this example, let's get GitHub's public timeline:</p>
+                <pre>
+                    <code>
+    r = requests.get('https://api.github.com/events')    # Response [200]
+                    </code>
+                </pre>
+                <p>Now, we have a <strong>Response</strong> object called r. We can get all the information we need from this object.</p>
+                <p>Requests's simple API means that all forms of HTTP request are as obvious.For example, this is how you make an HTTP POST requests:</p>
+                <pre>
+                    <code>
+    r1 = requests.post('http://httpbin.org/post', data = {'key':'value'})
+                    </code>
+                </pre>
+                <p>Nice, right? What about the other HTTP request types: PUT, DELETE,HEAD and OPTIONS? There are all just as simple:</p>
+                <pre>
+                    <code>
+    r2 = requests.put('http://httpbin.org/put', data = {'key':'value'})
+    r3 = requests.delete('http://httpbin.org/delete')
+    r4 = requests.head('http://httpbin.org/get')
+    r5 = requests.options('http://httpbin.org/get')
+                    </code>
+                </pre>
+                <p>That's all well and good, but it's also only the start of what Requests can do.</p>
+
+                <div class="section">
+                    <h2>Passing Parameters In URLs</h2>
+                    <p>You often want to send some sort of data in the URL's query string. If you were constructing the URL by hand, this data would be given as key/value pairs in the URL after a question mark, e.g. httpbin.org/get?key=val. Requests allows you to provide these agriments as a dictionary of strings, using the <strong>params</strong>keyword argument. As an example, if you wanted to pass key1=value1 and key2=value2 to httpbin.org/get, you would use the following code:</p>
+                    <pre>
+                        <code>
+    payload = {'key1': 'value1', 'key2': 'value2'}
+    r6 = requests.get('http://httpbin.org/get', params=payload)
+                        </code>
+                    </pre>
+                    <p>You can see that the URL has bee correctly encoded by printing the URL:</p>
+                    <pre>
+                        <code>
+    print(r6.text)      # http://httpbin.org/get?key1=value1&key2=value2
+                        </code>
+                    </pre>
+                </div>
+
+                <div class="section">
+                    <h2>Response Content</h2>
+                </div>
+
+                <div class="section">
+                    <h2>Binary Response Content</h2>
+                </div>
+
+                <div class="section">
+                    <h2>JSON Response Content</h2>
+                </div>
+
+                <div class="section">
+                    <h2>Raw Response Content</h2>
+                </div>
+
+                <div class="section">
+                    <h2>Custom Headers</h2>
+                </div>
+
+                <div class="section">
+                    <h2>More complicated POST requests</h2>
+                </div>
+
+                <div class="section">
+                    <h2>POST a Multipart-Encoded File</h2>
+                </div>
+
+                <div class="section">
+                    <h2>Response Status Codes</h2>
+                </div>
+
+                <div class="section">
+                    <h2>Response Headers</h2>
+                </div>
+
+                <div class="section">
+                    <h2>Cookies</h2>
+                </div>
+
+                <div class="section">
+                    <h2>Redirection and History</h2>
+                </div>
+
+                <div class="section">
+                    <h2>Timeouts</h2>
+                    <p>You can tell Requests to stop waiting for a response after a given number of seconds with the <strong>timeout</strong> parameter. Nearly all production code should use this parameter in nearly all request. Failure to do so can cause your program to hang indefinitely:</p>
+                    <pre>
+                        <code>
+    r7 = requests.get('http://github.com', timeout=0.001)
+                        </code>
+                    </pre>
+                    <p><strong>Note:</strong></p>
+                    <pre>
+                        <code>
+    timeout is not a time limit on the entire response download; rather, an exception is raised if the server has not issued a response for timeout seconds (more precisely, if no bytes have been received on the underlying socket for timeout seconds). If no timeout is specified explicitly, requests do not time out. 
+                        </code>
+                    </pre>
+                </div>
+
+                <div class="section">
+                    <h2>Errors and Exceptions</h2>
+                    <p>In the event of a nwtwork problem (e.g.DNS failure, refused connection, etc), Requests will raise a <strong>ConnectionError</strong> exception</p>
+                    <p><strong>Response.raise_for_status()</strong>will raise an HTTPError if the HTTP request returned an unsuccessful status code.</p>
+                    <p>If a request times out, a <strong>Timeout</strong> exception is raised.</p>
+                    <p>If a request exceeds the configured number of maximum redirections, a <strong>TooManyRedirects</strong> exception is raised.</p>
+                    <p>All exception that Requests explicitly raises inherit from</p>
+                    <p><strong>Requests.exceptions.RequestException.</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">
+                2016 &copy; 610工作室. <a href="http://www.choudiaosi.com" target="_blank">610工作室!</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript-->
+    <script type="text/javascript" src="../assets/global/plugins/JQuery/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="../assets/global/plugins/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/global/scripts/global.js"></script>
+    <!--<script type="text/javascript" src="../assets/pages/scripts/Unit_5.js"></script>-->
+</body>
+</html>
