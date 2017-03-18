@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device,initial-scale=1"/> 
+
+    <meta name="keywords" content="Quickstart">
+    <meta name="description" content="Quickstart">
+    <meta name="author" content="">
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+
+    <title>Advanced Usage</title>
+
+    <link rel="stylesheet" type="text/css" href="../assets/global/plugins/bootstrap-3.3.6-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/global/css/global.css">
+    <link rel="stylesheet" type="text/css" href="../assets/pages/css/quick_start.css" />
+</head>
+<body>
+    <!--Fixed navbar-->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="appendix_E_JSLint.html">Quickstart</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height:1px">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">DropDown<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another Action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Nav Header</li>
+                            <li><a href="#">Separted Link</a></li>
+                            <li><a href="#">One more separted link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--Begin page content-->
+    <div class="container">
+        <div style="text-align: right;">
+            <div class="page-header">
+                <h2>Python Requests<br>Advanced Usage</h2>
+            </div>
+
+            <!--q元素表示引自他处的内容-->
+            <q>逆境和厄运自有妙处。</q><br>
+            <!--cite元素表示所引用作品（如图书、文章、电影和诗歌）的标题-->
+            <cite>——威廉·莎士比亚，《皆大欢喜》（As You Like It）</cite>
+        </div>
+
+        <p>This document covers some of Requests more advanced features.</p>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Session Objects</h2>
+                <p>The Session object allows you to persist certain parameters across requests. It also persist cookies across all requests made from the Session instance, and will use <strong>urllib3's connection pooling.</strong>So if you're making several requests to the same host, the underlying TCP connection will be reused, which can result in a significant performance increase (see <strong>HTTP persistent connection</strong>).</p>
+
+                <p>A Session objetc has all the methods of the main Requests API.</p>
+
+                <p>Let's persist some cookies across requests:</p>
+                <pre>
+                    <code>
+    import requests
+    s = requests.Session()
+    s.get('http://httpbin.org/cookies/set/sessioncookie/123456789')
+    r = s.get('http://httpbin.org/cookies')
+    print(r.text)       # {"cookies": {"sessioncookie": "123456789"}}
+                    </code>
+                </pre>
+                <p>Sessions can also be used to provide default data to the request methods. This is done by providing data to the properties on a Seeion object:</p>
+                <pre>
+                    <code>
+    s = requests.Session()
+    s.auth = ('user', 'pass')
+    s.headers.update({'x-test': 'true'})
+    # both 'x-test' and 'x-test2' are sent
+    s.get('http://httpbin.org/headers', headers={'x-test2': 'true'})
+
+    {
+      "headers": {
+        "Accept": "*/*", 
+        "Accept-Encoding": "gzip, deflate", 
+        "Authorization": "Basic dXNlcjpwYXNz", 
+        "Connect-Time": "0", 
+        "Connection": "close", 
+        "Host": "httpbin.org", 
+        "Total-Route-Time": "0", 
+        "User-Agent": "python-requests/2.13.0", 
+        "Via": "1.1 vegur", 
+        "X-Request-Id": "fad30c42-a388-48f6-8f2c-9c36eb186111", 
+        "X-Test": "true", 
+        "X-Test2": "true"
+      }
+    }
+                    </code>
+                </pre>
+                <p>Any dictionaries that you pass to a request method will be merged with the session-level values that are set. The method-level parameters override session parameters.</p>
+
+                <p>Note, however, that method-level parameters will not be persisted across requests, even if usinng a session. This example will only send the cookies with the first request, but not the second:</p>
+                <pre>
+                    <code>
+    s = requests.Session()
+    r = s.get('http://httpbin.org/cookies', cookies={'from-my': 'browser'})
+    print(r.text)       # {"cookies": {"from-my": "browser"}}
+    r = s.get('http://httpbin.org/cookies')
+    print(r.text)       # {"cookies": {}}
+                    </code>
+                </pre>
+
+                <p>If you want to manually add cookies to your session, use the <strong>Cookie utility functions </strong>to manipulates <strong>Session.cookies.</strong></p>
+
+                <p>Session can also be used as context managers:</p>
+                <pre>
+                    <code>
+    with requests.Session() as s:
+        s.get('http://httpbin.org/cookies/set/sessioncookie/123456789')
+                    </code>
+                </pre>
+
+                <br>
+                <h2>Request and Response objects</h2>
+                <p>Whenever a call is made to requests.get() and friends, you are doing two major thing. First, you are constructing a <strong>Request</strong> object which will be sent off to a server to request or query some resource. Second, a <strong>Response</strong> object is generated once Requests gets a response back from the server. The <strong>Response</strong> object contains all of the information returned by the server and also contains the <strong>Request</strong> objetc you created originally. Here is a simple request to get some very important information from Wikipedia's server:</p>
+                <pre>
+                    <code>
+    r = requests.get('http://en.wikipedia.org/wiki/Monty_Python')
+                    </code>
+                </pre>
+                <p>
+                    If we want to access the headers the server sent back to us, we do this:
+                </p>
+                <pre>
+                    <code>
+    r.headers
+                    </code>
+                </pre>
+                <p>However, if we want to get the headers we sent the server, we simply access the request, and then the request's headers:</p>
+                <pre>
+                    <code>
+    r.request.headers
+                    </code>
+                </pre>
+
+                <br>
+                <h2>Timeouts</h2>
+                <p>Most requests to external servers should have a timeout attached, in case the server is not responding in a timely manner. By default, requests do not time out unless a timeout value is set explicitly. Without a timeout, your code may hang for a minutes or more.</p>
+
+                <p>The <strong>Connect</strong> timeout is the number of seconds Requests will wait for your client to establish a connection to a remote machine (corresponding to the connect()) call on the socket. It's a good practice to set connect timeout to slightly larger than a multiple of 3, which is the default <strong>TCP packet retransmission window.</strong></p>
+
+                <p>Once your client has connected to the server and sent the HTTP request, the <strong>read</strong> timeout is the number of seconds the client will wait for the server to send a response. (Specifically, it's the number of seconds that the client will wait between bytes sent from the server. In 99.9% of cases, this is the time before the server sends the first byte).</p>
+
+                <p>If you specify a single value for the timeout, like this:</p>
+                <pre>
+                    <code>
+    r = requests.get('https://github.com', timeout=5)
+                    </code>
+                </pre>
+                <p>The timeout value will be applied to both the <strong>connect</strong> and the <strong>read</strong> timeouts. Specify a tuple if you would like to set the values separately:</p>
+                <pre>
+                    <code>
+    r = requests.get('https://github.com', timeout=(3.05, 27))
+                    </code>
+                </pre>
+                <p>If the remote server is very slow, you can tell Requests to wait forever for a response, by passing None as a timeout value and then retrieving a cup of coffee.</p>
+                <pre>
+                    <code>
+    r = requests.get('https://github.com', timeout=None)
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">
+                2016 &copy; 610工作室. <a href="http://www.choudiaosi.com" target="_blank">610工作室!</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript-->
+    <script type="text/javascript" src="../assets/global/plugins/JQuery/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="../assets/global/plugins/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/global/scripts/global.js"></script>
+    <!--<script type="text/javascript" src="../assets/pages/scripts/Unit_5.js"></script>-->
+</body>
+</html>
