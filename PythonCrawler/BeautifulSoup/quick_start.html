@@ -179,6 +179,34 @@
             <p><strong>NavigableString</strong> supports most of the features described in <strong>Navigating the tree</strong> and <strong>Searching the true</strong>, but nor all of them. In particular, since a string can't contain anything (they way a tag may contain a string or another tag), since a string don't support the <strong>.contents</strong> or <strong>.string</strong> attributes, or the <strong>find()</strong> method.</p>
             <p>If you want to use a <strong>NavigableString</strong> outside of Beautiful Soup, you should call <strong>unicode()</strong> on it to turn it into a normal Python Unicode string. If you don't, your string will carry around a reference to the entire Beautiful Soup parse tree, even when you're done using Beautiful Soup. This is a big waste of memory.</p>
 
+            <br>
+            <h4>Comments and other special strings</h4>
+            <p><strong>Tag, NavigableString,</strong> and <strong>BeautifulSoup</strong> cover almost everything you'll see in an HTML or XML file, but there are a few leftover bits. The only one you'll probably ever need to worry about is the comment:</p>
+            <pre>
+                <code>
+    markup = "&lt;b&gt;&lt;!--Hey, buddy. Want to buy a used parser?--&gt;&lt;/b&gt;</b>"
+    soup = BeautifulSoup(markup, "html5lib")
+    comment = soup.b.string
+    print(type(comment))        # &lt;class 'bs4.element.Comment'&gt;
+                </code>
+            </pre>
+            <p>The <strong>Comment</strong> object is just a special type of <strong>NavigableString</strong>:</p>
+            <pre>
+                <code>
+    print(comment)      # Hey, buddy. Want to buy a used parser?
+                </code>
+            </pre>
+            <p>But when it appears as part of an HTML document, a <strong>Comment</strong> is displayed with special formatting:</p>
+            <pre>
+                <code>
+    print(soup.b.prettify())
+    &lt;b&gt;
+     &lt;!--Hey, buddy. Want to buy a used parser?--&gt;
+    &lt;/b&gt;
+                </code>
+            </pre>
+            <p>Beautiful Soup defines classes for anything else that might show up in an XML document: <strong>CData, ProcessingInstruction, Decleartion, and Doctype.</strong> Just like <strong>Comment</strong>, these clasees are subclasses of <strong>NavigableString</strong> that add something extra to the string. Here's an example that replaces the comment with a CDATA block:</p>
+
 
             </div>
         </div>
