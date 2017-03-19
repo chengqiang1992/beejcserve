@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device,initial-scale=1"/> 
+
+    <meta name="keywords" content="Beautiful Soup Documenttation">
+    <meta name="description" content="Beautiful Soup Documenttation">
+    <meta name="author" content="">
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+
+    <title>Beautiful Soup Documenttation</title>
+
+    <link rel="stylesheet" type="text/css" href="../assets/global/plugins/bootstrap-3.3.6-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/global/css/global.css">
+    <link rel="stylesheet" type="text/css" href="../assets/pages/css/quick_start.css" />
+</head>
+<body>
+    <!--Fixed navbar-->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="appendix_E_JSLint.html">Beautiful Soup Documenttation</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height:1px">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">DropDown<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another Action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Nav Header</li>
+                            <li><a href="#">Separted Link</a></li>
+                            <li><a href="#">One more separted link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--Begin page content-->
+    <div class="container">
+        <div style="text-align: right;">
+            <div class="page-header">
+                <h2>Beautiful Soup Documenttation</h2>
+            </div>
+
+            <!--q元素表示引自他处的内容-->
+            <q>难道我的眼镜耳朵都有了毛病？</q><br>
+            <!--cite元素表示所引用作品（如图书、文章、电影和诗歌）的标题-->
+            <cite>——威廉·莎士比亚，《错误的喜剧》（The Comedy of Errors）</cite>
+        </div>
+
+        <p>Beautiful Soup is a Python library for pulling data out HTML and XML files. It works with your favorite parser to provide idiomatic ways of navigating, searching, and modifying the parse tree. It commonly saves programmers hours or days of work.</p>
+
+        <p>These instructions illustrate all major features of Beautiful Soup 4, with example. I show you what the library is good for, how it works, how to use it, how to make it do what you want, and what to do when it violates your exceptions.</p>
+
+        <p>The example in this documentation should work the same way in Python 2.7 and Python 3.2.</p>
+
+        <p>You might be looking for the documentation for Beautiful Soup 3. If so, you should know that Beautiful Soup 3 is no longer being developed, and that Beautiful Soup 4 is recommended for all new projects. If you want to learn about the different between Beautiful Soup 3 and Beautiful Soup 4, see Porting code to BS4.</p>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+            <br>
+            <h2>Getting help</h2>
+            <p>If you have question about Beautiful Soup, or run into problems, send mail to the discussion group. If you problem involes parsing an HTML document, bu sure to mention what the diagnose() function syas about that document.</p>
+
+            <br>
+            <h2>Quick Start</h2>
+            <p>Here's an HTML document i'll be using as an example throughout this document. It's part of a story from Alice in wonderland.</p>
+            <pre>
+                <code>
+    html_doc = """
+    &lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse's story&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+    &lt;p class=&quot;title&quot;&gt;&lt;b&gt;The Dormouse's story&lt;/b&gt;&lt;/p&gt;
+
+    &lt;p class=&quot;story&quot;&gt;Once upon a time there were three little sisters; and their names were
+    &lt;a href=&quot;http://example.com/elsie&quot; class=&quot;sister&quot; id=&quot;link1&quot;&gt;Elsie&lt;/a&gt;,
+    &lt;a href=&quot;http://example.com/lacie&quot; class=&quot;sister&quot; id=&quot;link2&quot;&gt;Lacie&lt;/a&gt; and
+    &lt;a href=&quot;http://example.com/tillie&quot; class=&quot;sister&quot; id=&quot;link3&quot;&gt;Tillie&lt;/a&gt;;
+    and they lived at the bottom of a well.&lt;/p&gt;
+
+    &lt;p class=&quot;story&quot;&gt;...&lt;/p&gt;
+    """
+                </code>
+            </pre>
+            <p>Runing the "three sisters" document throught Beautiful Soup gives us a <strong>BeautifulSoup</strong> object, whcih represents the document as a nested data structure:</p>
+            <pre>
+                <code>
+    from bs4 import BeautifulSoup
+    soup = BeautifulSoup(html_doc, 'html.parser')
+    print(soup.prettify())
+                </code>
+            </pre>
+
+            <p>Here are some simple ways to navigate that data structure:</p>
+            <pre>
+                <code>
+    print(soup.title)               # &lt;title&gt;The Dormouse's story&lt;/title&gt;
+    print(soup.title.name)          # title
+    print(soup.title.string)        # The Dormouse's story
+    print(soup.title.parent.name)   # head
+    print(soup.p)                   # &lt;p class=&quot;title&quot;&gt;&lt;b&gt;The Dormouse's story&lt;/b&gt;&lt;/p&gt;
+    print(soup.p['class'])          # ['title']
+    print(soup.a)                   # &lt;p class=&quot;title&quot;&gt;&lt;b&gt;The Dormouse's story&lt;/b&gt;&lt;/p&gt;&lt;a class=&quot;sister&quot; href=&quot;http://example.com/elsie&quot; id=&quot;link1&quot;&gt;Elsie&lt;/a&gt;
+    print(soup.find_all('a'))       # [&lt;a class=&quot;sister&quot; href=&quot;http://example.com/elsie&quot; id=&quot;link1&quot;&gt;Elsie&lt;/a&gt;, &lt;a class=&quot;sister&quot; href=&quot;http://example.com/lacie&quot; id=&quot;link2&quot;&gt;Lacie&lt;/a&gt;, &lt;a class=&quot;sister&quot; href=&quot;http://example.com/tillie&quot; id=&quot;link3&quot;&gt;Tillie&lt;/a&gt;]
+
+    print(soup.find(id='link3'))    # &lt;a class=&quot;sister&quot; href=&quot;http://example.com/tillie&quot; id=&quot;link3&quot;&gt;Tillie&lt;/a&gt;
+                </code>
+            </pre>
+            <p>One common task is extracting all the URLs found within a page's a tags:</p>
+            <pre>
+                <code>
+    for link in soup.find_all('a'):
+        print(link.get('href'))
+                </code>
+            </pre>
+            <p>Another common task is extracting all the text from a page:</p>
+            <pre>
+                <code>
+    print(soup.get_text())
+                </code>
+            </pre>
+            <p>Does this look like what you need? If so, read on.</p>
+
+            <br>
+            <h2>Installing Beautiful Soup</h2>
+            <h3>Problems after installation</h3>
+            <h3>Installing a parser</h3>
+
+            <br>
+            <h2>Making the soup</h2>
+            <p>To parse a document, pass it into the <strong>BeautifulSoup</strong> constructor. You can pass in a string or an open filehandle:</p>
+
+            <p>First, the document is coverted to Unicode, and HTML entities are converted to unicode charcters:</p>
+
+            <p>Beautiful Soup then parses the document using the best available parser. It will sue an HTML parser unliess you specifically tell it use an XML parser</p>
+
+            <br>
+            <h2>Kinds of objects</h2>
+            <p>BeautifulSoup transforms a complex HTML document into a complex tree of Python objects/ But you'll only ever have to deal with about four kinds or objects: <strong>Tag, NavigableString, BeautifulSoup, and Comment.</strong></p>
+            <h4>Tag</h4>
+            <p>A <strong>Tag</strong> object corresponds to an XML or HTML tag in the original document:</p>
+            <p>Tags have a lot of attributes and methods, and I'll cover most them in <strong>Navigating the tree</strong> and <strong>Searching the tree.</strong> For now, the most important features of a tag are its name and attributes.</p>
+            <h4>Name</h4>
+            <p>Every tag has a name, accessible as <strong>.name</strong>:</p>
+            <p>If you change a tag's name, the change will be reflected in any HTML markup generated by BeautifulSoup:</p>
+            <h4>Attributes</h4>
+            <p>A tag may have any number of attributes. The tag <strong>&lt;b class=&quot;boldest&quot;&gt;</strong> has an attribute "class" whose value is "boldest". You can access a tag's attributes by treating the tag like a dictionary:</p>
+            <p>You can access the dictionary directly as <strong>.attrs</strong>:</p>
+            <p>You can add, remove,adn modify a tag's attributes. Again, this is done by treating the tag as a dictionary:</p>
+            <h4>Multi-valued attributes</h4>
+            <p>HTML 4 defines a few attributes that can have multiple values. HTML 5 removes a couple of them, but defines a few more. The most common multi-valued arrtibute is <strong>class</strong>(that is, a tag can have more than one CSS class). Other include rel, rev, acceptcharset, headers, and accesskey. Beautiful Soup presents the value(s) of a multi-valued attributes as a list:</p>
+            <p>IF an attribute looks like it has more than one value, but it's not a multi-valued attributes as defined by any version of the HTML standard, Beautiful Soup will leave the attribute alone:</p>
+            <p>When you turn a tag back into a string, multiple attribute values are consolidated:</p>
+            <p>If you parse a document as XML, there are no multi-valued attribures:</p>
+
+            <br>
+            <h4>NavigableString</h4>
+            <p>A String corresponds to a bit of text within a tag. Beautiful Soup uses the <strong>NavigableString</strong> class to contain these bits of text:</p>
+            <p>A <strong>NavigableString</strong> is just like a Python Unicode string, except that it also supports some of the features described in <strong>Navigating the tree</strong> and <strong>Searching the tree</strong>. You can convert a <strong>NavigableString</strong> to a unicode string with <strong>unicode()</strong>:</p>
+            <p>You can't edit a string in place, but you can replace one string with another, using <strong>replace_with()</strong>:</p>
+            <p><strong>NavigableString</strong> supports most of the features described in <strong>Navigating the tree</strong> and <strong>Searching the true</strong>, but nor all of them. In particular, since a string can't contain anything (they way a tag may contain a string or another tag), since a string don't support the <strong>.contents</strong> or <strong>.string</strong> attributes, or the <strong>find()</strong> method.</p>
+            <p>If you want to use a <strong>NavigableString</strong> outside of Beautiful Soup, you should call <strong>unicode()</strong> on it to turn it into a normal Python Unicode string. If you don't, your string will carry around a reference to the entire Beautiful Soup parse tree, even when you're done using Beautiful Soup. This is a big waste of memory.</p>
+
+
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">
+                2016 &copy; 610工作室. <a href="http://www.choudiaosi.com" target="_blank">610工作室!</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript-->
+    <script type="text/javascript" src="../assets/global/plugins/JQuery/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="../assets/global/plugins/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/global/scripts/global.js"></script>
+    <!--<script type="text/javascript" src="../assets/pages/scripts/Unit_5.js"></script>-->
+</body>
+</html>

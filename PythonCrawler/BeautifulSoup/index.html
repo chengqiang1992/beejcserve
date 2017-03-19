@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Beautiful Soup</title>
+	<meta name="keywords" content="Beautiful Soup">
+	<meta name="description" content="Beautiful Soup">
+
+	<link rel="short icon" href="">
+	<link rel="stylesheet" type="text/css" href="../assets/global/plugins/bootstrap-3.3.6-dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../assets/pages/css/index.css">
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="http://v3.bootcss.com/examples/starter-template/#">Requests: HTTP for Humans</a>
+        </div>
+
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="http://v3.bootcss.com/examples/starter-template/#">Home</a></li>
+            <li><a href="http://v3.bootcss.com/examples/starter-template/#about">About</a></li>
+            <li><a href="http://v3.bootcss.com/examples/starter-template/#contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <header>
+                    <h1>Beautiful Soup</h1>
+                </header>
+                <div class="blog-header">
+                    <p class="lead blog-description">"A tremendous boon." -- Python411 Podcast</p>
+                </div>
+
+                <p>Beautiful Soup is a python library designed for quick turnaround peojects like screen-scraping. There features make it powerful:</p>
+                <ol>
+                    <li>Beautiful Soup provides a few simple methods and Pythonic idioms for navigating, searching, and modifying a parse tree: a tookit for dissecting a document and extracting what you need. It doesn't take much code to write an application.</li>
+                    <li>Beautiful Soup automatically converts incoming documents to unicode and outgoing documents to UTF-8. You don't have to think about encoding, unless the document doesn't specify an encoding and Beautiful Soup can't detect one. Then you just have to specify the original encoding.</li>
+                    <li>Beautiful Soup sits on top of popular Python parsers like Lxml and html5lib, allowing you to try out different parsing strategies or trade speed for flexibility.</li>
+                </ol>
+                <p>Beautiful Soup parses anything you give it, and does the tree travelsal stuff for you. You can tell it "Find all the likns", or "Find all the links of class externaLink", or "Find all the links whose urls match "foo.com", or "Find all the table heading that's got bold text, then given me that text."</p>
+
+                <P>Valueable data that was once locked up in poorly-designed websites is now within you reach. Projects that would have taken hours yake only munites withn Beautiful Soup</P>
+
+                <br>
+                <p>Table Of Contents</p>
+                <ul>
+                    <li>Beautiful Soup</li>
+                    <li>
+                        Documentation
+                        <ul>
+                            <li>Getting help Quick Start</li>
+                        </ul>
+                    </li>
+                    <li>Installing Beautiful Soup
+                        <ul>
+                            <li>Problems after installation</li>
+                            <li>Installing a parser</li>
+                        </ul>
+                    </li>
+                    <li>Making the soup Kinds of Objects
+                        <ul>
+                            <li>Tag
+                                <ul>
+                                    <li>Name</li>
+                                    <li>Attributes</li>
+                                </ul>
+                            </li>
+                            <li>NavigableString</li>
+                            <li>BeautifulSoup</li>
+                            <li>Comments and other special strings</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Navigating the tree
+                        <ul>
+                            <li>Going down
+                                <ul>
+                                    <li>Navigating using tage names</li>
+                                    <li>.contents and .children</li>
+                                    <li>.descendants</li>
+                                    <li>.string</li>
+                                    <li>.strings and stripped_strings</li>
+                                </ul>
+                            </li>
+                            <li>Going up
+                                <ul>
+                                    <li>.parent</li>
+                                    <li>.parents</li>
+                                </ul>
+                            </li>
+                            <li>Going sideways
+                                <ul>
+                                    <li>.next_sibling and .previous_sibling</li>
+                                    <li>.next_siblings and .previous_siblings</li>
+                                </ul>
+                            </li>
+                            <li>Going back and forth
+                                <ul>
+                                    <li>.next_element and .previous_element</li>
+                                    <li>.next_elements and .previous_elements</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Searching the tree
+                        <ul>
+                            <li>Kinds of filters</li>
+                            <li>find_all()</li>
+                            <li>Calling a tag is like calling find_all()</li>
+                            <li>find()</li>
+                            <li>find_parents() and find_parent()</li>
+                            <li>find_next_siblings() and find_next_sibling()</li>
+                            <li>find_previous_siblings() and find_previous_sibling()</li>
+                            <li>find_all_next() and find_next()</li>
+                            <li>find_all_previous() and find_previous()</li>
+                            <li>CSS selectors</li>
+                        </ul>
+                    </li>
+                    <li>
+                        MOdifying the tree
+                        <ul>
+                            <li>Changing tag names and attributes</li>
+                            <li>Modifying .string</li>
+                            <li>append()</li>
+                            <li>NavigableString() an .new_tag()</li>
+                            <li>insert()</li>
+                            <li>insert_before() and insert_after()</li>
+                            <li>clear()</li>
+                            <li>extract()</li>
+                            <li>decompose()</li>
+                            <li>replace_with()</li>
+                            <li>wrap()</li>
+                            <li>unwrap()</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Output
+                        <ul>
+                            <li>Pretty-printing</li>
+                            <li>Non-pretty printing</li>
+                            <li>Output formatters</li>
+                            <li>get_text()</li>
+                        </ul>
+                    </li>
+                    <li></li>
+                </ul>
+
+        <footer>
+            <div class="page-footer-inner">
+                2016 &copy; 610工作室. <a href="http://www.choudiaosi.com" target="_blank">610工作室!</a>
+            </div>
+        </footer>
+    </div>
+
+	<script type="text/javascript" src="../assets/global/plugins/JQuery/jquery-2.2.3.min.js"></script>
+	<script type="text/javascript" src="../assets/global/plugins/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+    </script>
+</body>
+</html>
