@@ -5,8 +5,17 @@ can be enclosed in single quotes('...') or double quotes("...") with the same re
 to escape quotes
 """
 print('spam eggs')
-print('doesn\'t')
-print("doesn't")
+print('doesn\'t')       # use \' escape the single quote...
+print("doesn't")        # ... or use double quotes instead
+print("")
+
+"""
+In the interactive interpreter, the output string string is enclosed in quotes and special characters are backslashes. 
+While this might sometimes look different from the input  (the enclosing quotes could change),the two string are 
+equivalent. The string is enclosed in double quotes if the string contains a single quote and no double quotes, otherwise
+it is enclosed in single quotes. The print() function produces a more readable output, by omitting the enclosing quotes 
+and by printing escaped and special characters: 
+"""
 
 """
 String literals can span multiple lines. One way is using triple-quotes: """ """ or '''...'''. End of
@@ -53,5 +62,5 @@ Python string cannot be changed- they are immutable. teherefore , assigning to a
 in the string result in an error
 """
 
-word[0] = 'J'
-print(word)
+# word[0] = 'J'
+# print(word)
